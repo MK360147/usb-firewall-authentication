@@ -7,6 +7,9 @@ A USB authentication layer (2 Factor Authentication) for mounting storage, simil
 Every allowed USB must contain a secret key file inside it, for example:
 /mk-mahwete/2025-05u/.auth_key
 
+![Your paragraph text(1)](https://github.com/user-attachments/assets/e9b148f5-925f-477e-bbc6-01fc5756dc8a)
+
+
 When you insert the USB:
 
 * The script checks if .auth_key exists
@@ -19,7 +22,7 @@ When you insert the USB:
 
 ***
 
-1. Generate a secret hash<br/>
+⌨️ Generate a secret hash<br/>
 Get your srip ready or open then run this in your terminal to get our key:
 ```
      openssl rand -hex 32
@@ -32,7 +35,7 @@ Get your srip ready or open then run this in your terminal to get our key:
 
 ***
 
-2. Open your script and Find this line and past you genarated key:
+📜 Open your script and Find this line and past you genarated key:
 ```
       TRUSTED_HASH="your_hashed_value"
 ```
@@ -43,7 +46,7 @@ Get your srip ready or open then run this in your terminal to get our key:
 
 ***
 
-3. Move the Hash Script to a folder of your choice but i recommand this folder:
+💾 Move the Hash Script to a folder of your choice but i recommand this folder:
 ```
     /usr/local/bin/usb_hash_check.sh
 ```
@@ -61,7 +64,7 @@ Get your srip ready or open then run this in your terminal to get our key:
 
 ***
 
-4. Auto-run Hash Check When USB is Inserted\
+🔖 Auto-run Hash Check When USB is Inserted\
 You need to make sure that every time a USB is plugged in your usb_hash_check.sh script automatically runs to check it!. We'll use a simple Linux system: udev rules.
 
 Create a new udev rule
