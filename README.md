@@ -1,10 +1,10 @@
-# usb-firewall-authentication
+# USB Firewall Authentication
 A USB authentication layer (2 Factor Authentication) for mounting storage, similar to how a system uses passwords for user login. It demonstrates how important it is to protect your system from malware executed via USB. It's a simple but yet effective to protect you property.
 
-***
+<br/>
 
-**How The Hash Authentication Will Work**
-* Every allowed USB must contain a secret key file inside it, for example:
+**How The Hash Authentication Works**<br/>
+Every allowed USB must contain a secret key file inside it, for example:
 /mk-mahwete/2025-05u/.auth_key
 
 When you insert the USB:
@@ -12,44 +12,57 @@ When you insert the USB:
 * The script checks if .auth_key exists
 * If the hash inside matches the system's expected hash, the USB is usable
 * If not, the system immediately unmounts the USB!
+  
+> 🔐 This is like your Linux asking for a "password" before allowing the USB.
 
-🔐 This is like your Linux asking for a "password" before allowing the USB.
+<br/>
 
 ***
 
-**Generate a secret hash**
-Run this in your terminal:
-
+1. Generate a secret hash<br/>
+Get your srip ready or open then run this in your terminal to get our key:
+```
      openssl rand -hex 32
+```
 
-It will generate a random 64-character hexadecimal string.
-(This is your secret key — DO NOT lose it!)
+> [!IMPORTANT]
+> It will generate a random 64-character hexadecimal string (This is your secret key — DO NOT lose it!)
+
+<br/>
 
 ***
 
-Open the script you copied and Find the line:
+2. Open your script and Find this line and past you genarated key:
+```
+      TRUSTED_HASH="your_hashed_value"
+```
+> [!WARNING]
+> Replace "your_hashed_value" with your generated key!
 
-      TRUSTED_HASH="put_your_generated_hash_here"
+<br/>
 
+***
 
+3. Move the Hash Script to a folder of your choice but i recommand this folder:
+```
+    /usr/local/bin/usb_hash_check.sh
+```
+> [!NOTE]
+> Make this scrip to be executable by using the chmod command `chmod +x usb_hash_check.sh` 
 
-Move the Hash Script to a folder of your choice but i recommand this folder:
+<br/>
 
-    TRUSTED_HASH="your_hashed_value"
-Replace put_your_generated_hash_here with your generated key!
-
-
-Prepare your USB drive
-Now:
-Mount your USB drive
-Inside it, create a hidden file called .auth_key
-
+* Prepare your USB drive and add/mount your USB drive inside it, create a hidden file called .auth_key
+```
     echo "your_generated_hash" > /media/mk-mahwete/2052-05u/.auth_key
+```
 
+<br/>
 
-**Auto-run Hash Check When USB is Inserted**
-We need to make sure that every time a USB is plugged in:
-🔁 Our usb_hash_check.sh script automatically runs to check it!. We'll use a simple Linux system: udev rules.
+***
+
+4. Auto-run Hash Check When USB is Inserted\
+You need to make sure that every time a USB is plugged in your usb_hash_check.sh script automatically runs to check it!. We'll use a simple Linux system: udev rules.
 
 Create a new udev rule
 
@@ -60,8 +73,13 @@ Paste this into the file:
 
 Reload udev rules
 Now tell Linux to reload the rules:
-     
+```     
      sudo udevadm control --reload-rules
+```
 
-🚨 Disclaimer
-This is a prototype-level security enhancement and should not be considered a complete USB defense system. Use it as a learning tool or layer within a broader security strategy.
+<br/>
+
+***
+
+> [!CAUTION] 
+> This is a prototype-level security enhancement and should not be considered a complete USB defense system. Use it as a learning tool or layer within a broader security strategy.
